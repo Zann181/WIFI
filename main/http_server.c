@@ -7,6 +7,7 @@
 
 #include "esp_http_server.h"
 #include "esp_log.h"
+#include "led_control.h"
 
 #include "http_server.h"
 #include "tasks_common.h"
@@ -164,6 +165,44 @@ static esp_err_t http_server_favicon_ico_handler(httpd_req_t *req)
 
 
 
+
+static esp_err_t led_control_handler(httpd_req_t *req) {
+    char buf[100];
+    int ret = httpd_req_recv(req, buf, sizeof(buf));
+    if (ret > 0) {
+        buf[ret] = '\0';
+        if (strcmp(buf, "toggle") == 0) {
+            led_toggle();
+            httpd_resp_sendstr(req, led_get_state() ? "LED ON" : "LED OFF");
+        } else {
+            httpd_resp_send_500(req);
+        }
+    }
+    return ESP_OK;
+}
+
+/**
+ * LED state get handler.
+ * @param req HTTP request for which the uri needs to be handled.
+ * @return ESP_OK
+ */
+static esp_err_t led_state_handler(httpd_req_t *req)
+{
+    ESP_LOGI(TAG, "LED state requested");
+
+    if (led_get_state()) {
+        httpd_resp_sendstr(req, "LED ON");
+    } else {
+        httpd_resp_sendstr(req, "LED OFF");
+    }
+
+    return ESP_OK;
+}
+
+
+
+
+
 /**
  * Sets up the default httpd server configuration.
  * @return http server instance handle if successful, NULL otherwise.
@@ -223,6 +262,9 @@ static httpd_handle_t http_server_configure(void)
 		};
 		httpd_register_uri_handler(http_server_handle, &index_html);
 
+
+
+
 		// register app.css handler
 		httpd_uri_t app_css = {
 				.uri = "/app.css",
@@ -231,6 +273,24 @@ static httpd_handle_t http_server_configure(void)
 				.user_ctx = NULL
 		};
 		httpd_register_uri_handler(http_server_handle, &app_css);
+
+
+		httpd_uri_t led_uri = {
+				.uri = "/led",
+				.method = HTTP_POST,
+				.handler = led_control_handler,
+				.user_ctx = NULL
+		};
+		httpd_register_uri_handler(http_server_handle, &led_uri);
+
+		httpd_uri_t led_state_uri = {
+				.uri = "/led_state",
+				.method = HTTP_GET,
+				.handler = led_state_handler,
+				.user_ctx = NULL
+		};
+		httpd_register_uri_handler(http_server_handle, &led_state_uri);
+
 
 		// register app.js handler
 		httpd_uri_t app_js = {
@@ -256,6 +316,7 @@ static httpd_handle_t http_server_configure(void)
 	return NULL;
 }
 
+
 void http_server_start(void)
 {
 	if (http_server_handle == NULL)
@@ -263,6 +324,7 @@ void http_server_start(void)
 		http_server_handle = http_server_configure();
 	}
 }
+
 
 void http_server_stop(void)
 {

@@ -4392,6 +4392,24 @@
     {
         "children": [
             {
+                "children": [],
+                "depends_on": null,
+                "help": "Enable user callback for esp_https_server which can be used to get SSL context (connection information)\nE.g. Certificate of the connected client",
+                "id": "EXAMPLE_ENABLE_HTTPS_USER_CALLBACK",
+                "name": "EXAMPLE_ENABLE_HTTPS_USER_CALLBACK",
+                "range": null,
+                "title": "Enable user callback with HTTPS Server",
+                "type": "bool"
+            }
+        ],
+        "depends_on": null,
+        "id": "example-configuration",
+        "title": "Example Configuration",
+        "type": "menu"
+    },
+    {
+        "children": [
+            {
                 "children": [
                     {
                         "children": [],

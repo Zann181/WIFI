@@ -21,6 +21,39 @@ function getFileInfo()
 
     document.getElementById("file_info").innerHTML = "<h4>File: " + file.name + "<br>" + "Size: " + file.size + " bytes</h4>";
 }
+//Funcion del led 
+
+function toggleLED() {
+    fetch('/led', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'text/plain'
+        },
+        body: 'toggle'
+    })
+    .then(response => response.text())
+    .then(data => {
+        console.log(data);  // Aquí puedes manejar la respuesta, por ejemplo, mostrar si el LED está ON u OFF.
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
+/**
+ * Fetches and displays the LED state.
+ */
+function fetchLEDState() {
+    fetch('/led_state')
+    .then(response => response.text())
+    .then(data => {
+        document.getElementById("led_state_display").innerText = data;
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
 
 /**
  * Handles the firmware update.

@@ -22,6 +22,15 @@
 		<div class="buttons">
 			<input type="button" value="Select File" onclick="document.getElementById('selected_file').click();" />
 			<input type="button" value="Update Firmware" onclick="updateFirmware()" />
+			
+			
+			<h2>Control del LED</h2>
+			<button onclick="toggleLED()">Toggle LED</button>
+			<p id="led_status">LED Status: Unknown</p>
+			<h2>Estado del LED</h2>
+			<div id="led_state_display">Desconocido</div>
+			<button onclick="fetchLEDState()">Consultar estado del LED</button>
+
 		</div>
 		<h4 id="file_info"></h4>	
 		<h4 id="ota_update_status"></h4>

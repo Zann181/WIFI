@@ -16,6 +16,8 @@
 
 #include "http_server.h"
 #include "rgb_led.h"
+#include "led_control.h"
+
 #include "tasks_common.h"
 #include "wifi_app.h"
 
@@ -220,6 +222,8 @@ void wifi_app_start(void)
 
 	// Start WiFi started LED
 	rgb_led_wifi_app_started();
+
+	led_init();
 
 	// Disable default WiFi logging messages
 	esp_log_level_set("wifi", ESP_LOG_NONE);
