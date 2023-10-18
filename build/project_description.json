@@ -1,7 +1,7 @@
 {
     "version":            "1",
     "project_name":       "WIFI",
-    "project_version":    "ca41072-dirty",
+    "project_version":    "0081123-dirty",
     "project_path":       "C:/Users/Asus/WIFI",
     "idf_path":           "C:/Users/Asus/esp/esp-idf",
     "build_dir":          "C:/Users/Asus/WIFI/build",
