@@ -55,6 +55,29 @@ function fetchLEDState() {
 }
 
 
+function setLEDIntensity(intensity) {
+    fetch('/led_intensity', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'text/plain'
+        },
+        body: intensity.toString()
+    })
+    .then(response => response.text())
+    .then(data => {
+        console.log(data); // Aquí puedes manejar la respuesta, por ejemplo, mostrar la intensidad actual del LED.
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
+
+
+
+
+
+
 /**
  * Handles the firmware update.
  */

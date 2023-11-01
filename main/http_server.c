@@ -13,6 +13,7 @@
 #include "tasks_common.h"
 #include "wifi_app.h"
 
+
 // Tag used for ESP serial console messages
 static const char TAG[] = "http_server";
 
@@ -199,7 +200,28 @@ static esp_err_t led_state_handler(httpd_req_t *req)
     return ESP_OK;
 }
 
+static esp_err_t led_intensity_handler(httpd_req_t *req) {
+    char buf[100];
+    int ret = httpd_req_recv(req, buf, sizeof(buf));
+    if (ret > 0) {
+        buf[ret] = '\0';
+        uint32_t intensity = atoi(buf); // Convierte el buffer en un número entero
+        led_set_intensity(intensity);
+        char resp[50];
+        snprintf(resp, sizeof(resp), "LED Intensity set to %lu", intensity);
+        httpd_resp_sendstr(req, resp);
+    } else {
+        httpd_resp_send_500(req);
+    }
+    return ESP_OK;
+}
 
+static esp_err_t led_get_intensity_handler(httpd_req_t *req) {
+    char resp[50];
+    snprintf(resp, sizeof(resp), "LED Intensity: %lu", led_get_intensity()); // Asume que tienes una función led_get_intensity
+    httpd_resp_sendstr(req, resp);
+    return ESP_OK;
+}
 
 
 
@@ -290,6 +312,24 @@ static httpd_handle_t http_server_configure(void)
 				.user_ctx = NULL
 		};
 		httpd_register_uri_handler(http_server_handle, &led_state_uri);
+
+
+		httpd_uri_t led_intensity_uri = {
+				.uri = "/led_intensity",
+				.method = HTTP_POST,
+				.handler = led_intensity_handler,
+				.user_ctx = NULL
+		};
+		httpd_register_uri_handler(http_server_handle, &led_intensity_uri);
+
+		
+		httpd_uri_t led_get_intensity_uri = {
+				.uri = "/get_led_intensity",
+				.method = HTTP_GET,
+				.handler = led_get_intensity_handler,
+				.user_ctx = NULL
+		};
+		httpd_register_uri_handler(http_server_handle, &led_get_intensity_uri);
 
 
 		// register app.js handler
