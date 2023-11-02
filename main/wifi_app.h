@@ -16,7 +16,7 @@
 typedef void (*wifi_connected_event_callback_t)(void);
 
 // WiFi application settings
-#define WIFI_AP_SSID				"ESP32_Zann"			// AP name
+#define WIFI_AP_SSID				"ESP32_AP"			// AP name
 #define WIFI_AP_PASSWORD			"password"			// AP password
 #define WIFI_AP_CHANNEL				1					// AP channel
 #define WIFI_AP_SSID_HIDDEN			0					// AP visibility
@@ -93,6 +93,18 @@ void wifi_app_call_callback(void);
 int8_t wifi_app_get_rssi(void);
 
 #endif /* MAIN_WIFI_APP_H_ */
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

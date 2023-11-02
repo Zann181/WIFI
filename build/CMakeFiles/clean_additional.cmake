@@ -3,8 +3,6 @@ cmake_minimum_required(VERSION 3.16)
 
 if("${CONFIG}" STREQUAL "" OR "${CONFIG}" STREQUAL "")
   file(REMOVE_RECURSE
-  "WIFI.bin"
-  "WIFI.map"
   "app.css.S"
   "app.js.S"
   "bootloader\\bootloader.bin"
@@ -24,6 +22,8 @@ if("${CONFIG}" STREQUAL "" OR "${CONFIG}" STREQUAL "")
   "ldgen_libraries"
   "ldgen_libraries.in"
   "project_elf_src_esp32.c"
+  "wifi-conex.bin"
+  "wifi-conex.map"
   "x509_crt_bundle.S"
   )
 endif()

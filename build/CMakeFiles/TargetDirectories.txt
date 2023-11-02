@@ -9,7 +9,7 @@ C:/Users/Asus/WIFI/build/CMakeFiles/monitor.dir
 C:/Users/Asus/WIFI/build/CMakeFiles/flash.dir
 C:/Users/Asus/WIFI/build/CMakeFiles/encrypted-flash.dir
 C:/Users/Asus/WIFI/build/CMakeFiles/_project_elf_src.dir
-C:/Users/Asus/WIFI/build/CMakeFiles/WIFI.elf.dir
+C:/Users/Asus/WIFI/build/CMakeFiles/wifi-conex.elf.dir
 C:/Users/Asus/WIFI/build/CMakeFiles/size.dir
 C:/Users/Asus/WIFI/build/CMakeFiles/size-files.dir
 C:/Users/Asus/WIFI/build/CMakeFiles/size-components.dir

@@ -4,15 +4,11 @@
 
 #include "nvs_flash.h"
 
-#include "led_control.h"
 #include "wifi_app.h"
-#include "http_server.h"
-
-
 
 void app_main(void)
 {
-	// Configurar GPIO para LED
+
 
     // Initialize NVS
 	esp_err_t ret = nvs_flash_init();
@@ -22,11 +18,6 @@ void app_main(void)
 		ret = nvs_flash_init();
 	}
 	ESP_ERROR_CHECK(ret);
-
-	// Initialize LED GPIO
-	led_init();
-
-
 
 	// Start Wifi
 	wifi_app_start();
