@@ -28,14 +28,39 @@
 	</div>
 	<hr>
 		
-	<div id="DHT22Sensor">
-		<h2>DHT22 Sensor Readings</h2>
-		<label for="temperature_reading">Temperature: </label>
-		<div id="temperature_reading"></div> 
-		<label for="humidity_reading">Humidity: </label>
-		<div id="humidity_reading"></div>
+	<div id="temperatureRanges" style="text-align: center;">
+		<h2>Temperature LED Control</h2>
+		<!-- Temperature and RGB Control Set 1 -->
+		<div class="temperature-range" style="margin-bottom: 5px;">
+			<input type="number" id="temp_min1" placeholder="Min 1" style="margin-right: 2px;">
+			<input type="number" id="temp_max1" placeholder="Max 1" style="margin-right: 5px;">
+			<input type="number" id="red1" placeholder="R 1" style="margin-right: 5px;">
+			<input type="number" id="green1" placeholder="G 1" style="margin-right: 5px;">
+			<input type="number" id="blue1" placeholder="B 1" style="margin-right: 5px;">
+			<button onclick="updateLED(1)">Set 1</button>
+		</div>
+		<!-- Temperature and RGB Control Set 2 -->
+		<div class="temperature-range" style="margin-bottom: 5px;">
+			<input type="number" id="temp_min2" placeholder="Min 2" style="margin-right: 5px;">
+			<input type="number" id="temp_max2" placeholder="Max 2" style="margin-right: 5px;">
+			<input type="number" id="red2" placeholder="R 2" style="margin-right: 5px;">
+			<input type="number" id="green2" placeholder="G 2" style="margin-right: 5px;">
+			<input type="number" id="blue2" placeholder="B 2" style="margin-right: 5px;">
+			<button onclick="updateLED(2)">Set 2</button>
+		</div>
+		<!-- Temperature and RGB Control Set 3 -->
+		<div class="temperature-range" style="margin-bottom: 5px;">
+			<input type="number" id="temp_min3" placeholder="Min 3" style="margin-right: 5px;">
+			<input type="number" id="temp_max3" placeholder="Max 3" style="margin-right: 5px;">
+			<input type="number" id="red3" placeholder="R 3" style="margin-right: 5px;">
+			<input type="number" id="green3" placeholder="G 3" style="margin-right: 5px;">
+			<input type="number" id="blue3" placeholder="B 3" style="margin-right: 5px;">
+			<button onclick="updateLED(3)">Set 3</button>
+		</div>
 	</div>
-	<hr>
+	
+	  
+	  
 		
 	<div id="WiFiConnect">
 		<h2>ESP32 WiFi Connect</h2>
