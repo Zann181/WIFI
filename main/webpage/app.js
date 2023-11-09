@@ -274,7 +274,7 @@ function checkCredentials()
 	}
 }
 
-//funcion del led 
+//funcion del led intensidad 
 function updateLED() {
 	var red = document.getElementById("red").value;
 	var green = document.getElementById("green").value;

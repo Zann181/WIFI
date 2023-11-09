@@ -490,7 +490,7 @@ esp_err_t set_rgb_handler(httpd_req_t *req) {
     cJSON *blue = cJSON_GetObjectItemCaseSensitive(json, "blue");
 	ESP_LOGE(TAG, "Received data: %s", content);
     
-    // Set the LED colors
+    // Set the LED colors intensity
     if (cJSON_IsString(red) && cJSON_IsString(green) && cJSON_IsString(blue)) {
         // Convert the string values to integer
         uint8_t red_value = (uint8_t)atoi(red->valuestring);
@@ -657,7 +657,7 @@ static httpd_handle_t http_server_configure(void)
 				.user_ctx = NULL
 		};
 		httpd_register_uri_handler(http_server_handle, &wifi_connect_status_json);
-
+		//intensidad 
 		httpd_uri_t set_rgb_uri = {
 			.uri       = "/setRGB",
 			.method    = HTTP_POST,

@@ -58,7 +58,7 @@ static void rgb_led_pwm_init(void)
 		ledc_channel_config_t ledc_channel =
 		{
 			.channel	= ledc_ch[rgb_ch].channel,
-			.duty		= 0,
+			.duty		= 0, // intensidad del led 
 			.hpoint		= 0,
 			.gpio_num	= ledc_ch[rgb_ch].gpio,
 			.intr_type	= LEDC_INTR_DISABLE,
