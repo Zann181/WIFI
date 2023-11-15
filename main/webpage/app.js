@@ -11,10 +11,28 @@ var wifiConnectInterval = null;
 $(document).ready(function(){
 	//getUpdateStatus();
 	//startDHTSensorInterval();
+
 	$("#connect_wifi").on("click", function(){
 		checkCredentials();
-	}); 
+	});
+	
+	    // Evento de clic para actualizar la temperatura
+    $("#update_temperature").on("click", function(){
+        updateTemperature();
+    });
 });   
+
+function updateTemperature() {
+    $.get('/getTemperature', function(data) {
+        // Suponiendo que la respuesta es un objeto JSON con la clave 'temperature'
+        var temperature = data.temperature;
+        $("#temperature_value").text(temperature.toFixed(2));
+    })
+    .fail(function() {
+        alert("Error al obtener la temperatura");
+    });
+}
+
 
 /**
  * Gets file name and size for display on the web page.
@@ -303,7 +321,7 @@ function updateLED() {
   
 
 
-  
+/*
 // Esta función se llama para actualizar la hora en la página
 function updateClock() {
 	var xhr = new XMLHttpRequest();
@@ -316,7 +334,7 @@ function updateClock() {
 	};
 	xhr.send();
   }
-  
+  */
   // Esta función inicia el reloj y lo actualiza cada segundo (1000 ms)
   function startClock() {
 	updateClock(); // Actualiza la hora inmediatamente
@@ -345,6 +363,39 @@ function showPassword()
 		x.type = "password";
 	}
 }
+
+
+function updateTemperature() {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '/temperature', true);
+    xhr.onload = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            // Suponiendo que la respuesta es un objeto JSON con un campo 'temperature'
+            var data = JSON.parse(xhr.responseText);
+            document.getElementById('temperature').innerText = 'Temperatura: ' + data.temperature + '°C';
+        } else {
+            document.getElementById('temperature').innerText = 'Error al obtener la temperatura';
+        }
+    };
+    xhr.send();
+}
+
+// Actualizar la temperatura cada 5 segundos
+setInterval(updateTemperature, 2000);
+
+// Llamar a updateTemperature inmediatamente para cargar la temperatura inicial
+updateTemperature();
+
+
+
+
+
+
+
+    
+
+
+
 
 
 

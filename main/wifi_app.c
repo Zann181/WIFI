@@ -4,7 +4,7 @@
  *  Created on: Oct 17, 2021
  *      Author: kjagu
  */
-//Station mode
+
 #include "freertos/FreeRTOS.h"
 #include "freertos/event_groups.h"
 #include "freertos/task.h"
@@ -18,6 +18,8 @@
 #include "rgb_led.h"
 #include "tasks_common.h"
 #include "wifi_app.h"
+
+#include "temperature_sensor.h"
 
 // Tag used for ESP serial console messages
 static const char TAG [] = "wifi_app";
@@ -273,6 +275,9 @@ wifi_config_t* wifi_app_get_wifi_config(void)
 void wifi_app_start(void)
 {
 	ESP_LOGI(TAG, "STARTING WIFI APPLICATION");
+
+	//temperatura
+	adc_init();
 
 	// Start WiFi started LED
 	rgb_led_wifi_app_started();

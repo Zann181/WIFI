@@ -12,7 +12,6 @@
 #define OTA_UPDATE_SUCCESSFUL	1
 #define OTA_UPDATE_FAILED		-1
 
-
 /**
  * Connection status for Wifi
  */

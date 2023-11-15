@@ -20,6 +20,9 @@
 #include "rgb_led.h"  // Asegúrate de incluir el archivo de cabecera
 #include "ntp_time.h"
 
+#include "temperature_sensor.h"
+
+
 // Tag used for ESP serial console messages
 static const char TAG[] = "http_server";
 
@@ -490,7 +493,7 @@ esp_err_t set_rgb_handler(httpd_req_t *req) {
     cJSON *blue = cJSON_GetObjectItemCaseSensitive(json, "blue");
 	ESP_LOGE(TAG, "Received data: %s", content);
     
-    // Set the LED colors intensity
+    // Set the LED colors
     if (cJSON_IsString(red) && cJSON_IsString(green) && cJSON_IsString(blue)) {
         // Convert the string values to integer
         uint8_t red_value = (uint8_t)atoi(red->valuestring);
@@ -526,6 +529,19 @@ esp_err_t http_get_time_handler(httpd_req_t *req) {
 }
 */
 
+
+// Manejador para la ruta "/temperature"
+esp_err_t http_server_temperature_handler(httpd_req_t *req) {
+	void adc_init();
+    float temperature = read_temperature();
+    char response[64];
+
+    snprintf(response, sizeof(response), "{\"temperature\": %.2f}", temperature);
+    httpd_resp_set_type(req, "application/json");
+    httpd_resp_send(req, response, strlen(response));
+
+    return ESP_OK;
+}
 
 /**
  * Sets up the default httpd server configuration.
@@ -657,7 +673,7 @@ static httpd_handle_t http_server_configure(void)
 				.user_ctx = NULL
 		};
 		httpd_register_uri_handler(http_server_handle, &wifi_connect_status_json);
-		//intensidad 
+
 		httpd_uri_t set_rgb_uri = {
 			.uri       = "/setRGB",
 			.method    = HTTP_POST,
@@ -678,6 +694,16 @@ static httpd_handle_t http_server_configure(void)
 		httpd_register_uri_handler(http_server_handle, &get_time_uri);
 
 		*/
+		httpd_uri_t get_temperature_uri = {
+			.uri       = "/temperature",
+			.method    = HTTP_GET,
+			.handler   = http_server_temperature_handler,
+			.user_ctx  = NULL
+		};
+
+		httpd_register_uri_handler(http_server_handle, &get_temperature_uri);
+
+
 		return http_server_handle;
 	}
 
